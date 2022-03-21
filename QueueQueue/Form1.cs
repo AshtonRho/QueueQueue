@@ -14,6 +14,7 @@ namespace QueueQueue
             InitializeComponent();
         }
 
+        //updates the stack to add the new item
         private void btn_push_Click(object sender, EventArgs e)
         {
             string data = rtb_input.Text;
@@ -22,6 +23,7 @@ namespace QueueQueue
             updateStackListsUI();
         }
 
+        // updates the stack by removing the top item 
         private void btn_pop_Click(object sender, EventArgs e)
         {
             string resultA = stackA.Pop();
@@ -31,6 +33,7 @@ namespace QueueQueue
             updateStackListsUI();
         }
 
+        //has a look at what the item at the top of the stack is without removing it
         private void btn_peek_Click(object sender, EventArgs e)
         {
             string resultA = stackA.Peek();
@@ -40,6 +43,7 @@ namespace QueueQueue
             updateStackListsUI();
         }
 
+        //clears the stack so that theres no items left
         private void updateStackListsUI() {
             lbx_QA.Items.Clear();
             lbx_QB.Items.Clear();
@@ -49,12 +53,15 @@ namespace QueueQueue
 
         }
 
+        //outputs a blank message
         private void btn_clearOutput_Click(object sender, EventArgs e)
         {
             rtb_outputA.Text = "";
             rtb_outputB.Text = "";
         }
     }
+
+    //
     public class stackObject
     {
         public string data = "";
@@ -62,10 +69,14 @@ namespace QueueQueue
         public stackObject() {}
         public stackObject(string pData) { data = pData; }
     }
+
+    //sends a error message if the stack is empty
     public class stackAsObjects
     {
         private const string EMPTY_ERROR = "Error: Stack Empty";
         public stackObject top = null;
+
+        //makes the bottom of the stack the top as it was first in so is forst out for a queue 
         public bool Push(string pData)
         {
             stackObject obj = new stackObject();
@@ -74,6 +85,8 @@ namespace QueueQueue
             top = obj;
             return true;
         }
+
+        //looks at top item, if it is empty return error message but if not show the item
         public string Peek() {
             if (top == null)
             {
@@ -83,6 +96,8 @@ namespace QueueQueue
                 return top.data;
             }
         }
+
+        //looks at the top item and removes it if its not empty
         public string Pop()
         {
             string data = Peek();
@@ -92,6 +107,8 @@ namespace QueueQueue
             }
             return data;
         }
+
+        //
         public string[] ToArray()
         {
             List<string> items = new List<string>();
@@ -104,12 +121,16 @@ namespace QueueQueue
             return items.ToArray();
         }
     }
+
+    //creates the size limit of an item in the stack and generates what the error message will say
     public class stackAsArray
     {
         private const string EMPTY_ERROR = "Error: Stack Empty";
         private const int SIZE = 15;
         public string[] stack = new string[SIZE];
         public int next = 0;
+
+        //checks the length of the item
         public bool Push(string pData)
         {
             if (next >= SIZE)
@@ -123,6 +144,8 @@ namespace QueueQueue
                 return true;
             }
         }
+
+        //looks at the top of the stack
         public string Peek() {
             if (next == 0)
             {
@@ -132,6 +155,8 @@ namespace QueueQueue
                 return stack[next - 1];
             }
         }
+
+        //removes the top item if it is not empty
         public string Pop()
         {
             string data = Peek();
